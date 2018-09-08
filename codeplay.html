@@ -1,0 +1,161 @@
+<html>
+
+<head>
+
+  <title<javascriptM/title>
+  <script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous">></script>
+  <style type="text/css">
+
+      body{
+
+        font-family: sans-serif;
+        padding: 0;
+        margin: 0;
+
+      }
+      #head{
+        background-color: #EEEEEE;
+        width: 100%;
+        padding: 5px;
+        height: 20px;
+
+      }
+      #logo{
+
+          float: left;
+          font-weight: bold;
+          font-size: 120%;
+      }
+      #buttoncontainer{
+        width: 300px;
+        margin: 0 auto;
+
+
+
+      }
+
+      .Menu{
+
+          padding-left: 5px;
+          padding-right: 5px;
+          float: left;
+          border:1px solid grey;
+
+
+      }
+      .hover{
+
+        background-color: grey;
+
+      }
+      .click{
+          background-color: blue;
+
+      }
+
+      .htmltext{
+
+          padding-left: 10px;
+      }
+      textarea{
+
+        resize:none;
+
+        border-top: none;
+        border-color: pink;
+
+      }
+      iframe{
+
+
+
+      }
+      .panel{
+        float: left;
+
+      }
+      .hidden{
+
+          display: none;
+
+      }
+</style>
+</head>
+
+
+
+
+  <body>
+    <div class="hover"> </div>
+      <div class="click"> </div>
+    <div id="head">
+    <div  id="logo">CodePlayer</div>
+
+    <div  id="buttoncontainer">
+    <div class="Menu" id="html">HTML</div>
+
+    <div class="Menu" id="css">CSS</div>
+
+    <div class="Menu" id="javascript">JavaScript</div>
+
+
+
+    <div class="Menu" id="output">Output</div>
+
+
+    </div>
+  </div>
+
+    <textarea id="htmlpanel" class="panel"><p id="paragraph">Hello World!</p></textarea>
+    <textarea id="csspanel" class="panel hidden">p{color :blue} </textarea>
+    <textarea id="javascriptpanel" class="panel hidden">document.getElementById("paragraph").innerHTML = "Hello"; </textarea>
+    <iframe id="outputpanel" class="panel"></iframe>
+
+    <script type="text/javascript">
+      update();
+
+      $("#html").addClass("click");
+      $("#output").addClass("click");
+      $(".Menu").hover(function(){
+          $(this).addClass("hover");
+
+      },function(){
+          $(this).removeClass("hover");
+
+
+      });
+
+      $(".Menu").click(function(){
+          $(this).toggleClass("click");
+          $(this).removeClass("hover");
+
+          var panelId =$(this).attr("id")+"panel";
+
+          $("#"+panelId).toggleClass("hidden");
+          var activepanels=4-$(".hidden").length;
+          $(".panel").width($(window).width()/activepanels-15);
+
+      });
+
+      $(".panel").height($(window).height()-$(".Menu").height()-15);
+      $(".panel").width($(window).width()/2-15);
+      function update(){
+        $("iframe").contents().find("html").html("<html><head><style type='text/css'>" + $("#csspanel").val() + "</style></head><body>" + $("#htmlpanel").val() + "</body></html>");
+        document.getElementById("outputpanel").contentWindow.eval($("#javascriptpanel").val());
+      }
+      $("textarea").on('change keyup paste' ,function(){
+    //  $("iframe").contents().find("html").html($("#htmlpanel").val());
+
+      });
+
+
+    </script>
+
+
+  </body>
+
+
+
+</html>
